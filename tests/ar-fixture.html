@@ -1,0 +1,22 @@
+<!doctype html><html><head><meta charset="utf-8"><title>AR detector QA</title>
+<script src="../assets/vendor/aframe-1.8.0.min.js"></script><script src="../assets/vendor/ar-3.4.8.js"></script>
+<script type="module">
+import { modelMarkup } from '../src/ar.js';
+const pattern = new URLSearchParams(location.search).get('pattern') || 'hiro';
+if (!['hiro','kanji','letterA'].includes(pattern)) throw new Error('Invalid fixture');
+window.detected = false;
+const scene = document.createElement('a-scene');
+scene.setAttribute('embedded', '');
+scene.setAttribute('vr-mode-ui', 'enabled: false');
+scene.setAttribute('xr-mode-ui', 'enabled: false');
+scene.setAttribute('renderer', 'alpha: true; antialias: true');
+scene.setAttribute('arjs', 'sourceType: image; sourceUrl: ../assets/markers/' + pattern + '.png; sourceWidth: 512; sourceHeight: 512; debugUIEnabled: false; detectionMode: mono; cameraParametersUrl: ../assets/ar/camera_para.dat;');
+const marker = document.createElement('a-marker');
+marker.setAttribute('type', 'pattern'); marker.setAttribute('url', '../assets/markers/' + pattern + '.patt');
+marker.setAttribute('emitevents', 'true');
+marker.innerHTML = modelMarkup(pattern === 'hiro' ? 'key' : pattern === 'kanji' ? 'compass' : 'chest');
+marker.addEventListener('markerFound', () => { window.detected = true; });
+scene.appendChild(marker);
+const camera = document.createElement('a-entity');camera.setAttribute('camera', '');scene.appendChild(camera);
+document.body.appendChild(scene);
+</script></head><body style="margin:0;overflow:hidden"></body></html>

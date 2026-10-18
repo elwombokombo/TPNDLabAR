@@ -1,0 +1,27 @@
+import { GAME, STATIONS } from './config.js';
+const container = document.getElementById('marker-sheets');
+STATIONS.forEach(station => {
+  const sheet = document.createElement('article');
+  sheet.className = 'marker-sheet';
+  const header = document.createElement('header');
+  const brand = document.createElement('span'); brand.textContent = 'SACRÉ COEUR · EXPEDICIÓN AR';
+  const number = document.createElement('span'); number.textContent = station.number + ' / 03';
+  header.append(brand, number);
+  const kicker = document.createElement('p'); kicker.className = 'sheet-kicker';
+  kicker.textContent = 'ESTACIÓN ' + station.number + ' · ' + station.place.toUpperCase();
+  const title = document.createElement('h1'); title.textContent = station.name;
+  const description = document.createElement('p'); description.className = 'sheet-description';
+  description.textContent = 'Hay algo más de lo que ves. Abrí el juego y apuntá tu cámara a este sello.';
+  const img = document.createElement('img');
+  img.src = 'assets/markers/' + station.pattern + '.png'; img.alt = 'Marcador AR de ' + station.place;
+  img.width = 512; img.height = 512;
+  const caption = document.createElement('p'); caption.className = 'sheet-caption';
+  caption.textContent = 'ENCUADRÁ TODO EL BORDE NEGRO';
+  const url = document.createElement('p'); url.className = 'game-url';
+  url.textContent = new URL('./', location.href).href;
+  const foot = document.createElement('footer');
+  foot.textContent = GAME.title + ' · Conservá este cartel en su lugar para los próximos exploradores.';
+  sheet.append(header, kicker, title, description, img, caption, url, foot);
+  container.appendChild(sheet);
+});
+document.getElementById('print-button').addEventListener('click', () => window.print());
