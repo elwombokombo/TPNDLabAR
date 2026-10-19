@@ -4,9 +4,7 @@ Búsqueda del tesoro en realidad aumentada para navegador. Tres marcadores físi
 
 ## URL del juego
 
-https://sacre-coeur-expedicion-ar.santiagoamadeo123.chatgpt.site/
-
-El sitio se publica con Sites como servidor HTTPS. También puede alojarse en GitHub Pages con los pasos de abajo. La publicación de Sites se prepara en una copia aislada ignorada por Git, `.site-release/`, para conservar el remoto GitHub de esta carpeta. Su identidad está en `.openai/hosting.json`.
+https://elwombokombo.github.io/TPNDLabAR/
 
 ## Empezar
 
@@ -29,16 +27,15 @@ Mantené el marcador visible durante 900 ms. Los repetidos no suman, uno fuera d
 
 La historia es ficticia; no se atribuyen hechos históricos al edificio. El mapa de portada es conceptual, no un plano real.
 
-## Publicar en GitHub Pages
+## Publicación en GitHub Pages
 
-El sitio es estático: no necesita backend, claves ni servicios pagos.
+La publicación automática está definida en [`.github/workflows/pages.yml`](.github/workflows/pages.yml). Cada push a `main` ejecuta las pruebas, prepara `dist/` y publica esa carpeta. Los scripts de desarrollo, las pruebas y la documentación quedan en el repositorio, fuera del sitio publicado.
 
-1. Subí los archivos al repositorio.
-2. En **Settings → Pages → Build and deployment**, seleccioná **Deploy from a branch**, la rama con este proyecto (actualmente `Piloto_Amadeo`) y **/(root)**. Guardá.
-3. Esperá a que GitHub termine la publicación. La URL esperada es **https://elwombokombo.github.io/TPNDLabAR/**; solo funciona después de activar Pages y de que el despliegue termine.
-4. Probá esa URL desde el celular antes de entregarla.
+En **Settings → Pages → Build and deployment**, la fuente debe ser **GitHub Actions**. También se puede repetir la publicación desde **Actions → Publicar juego en GitHub Pages → Run workflow** sobre `main`.
 
-`.nojekyll` permite servir directamente los archivos. `npm run build` también prepara `dist/` para Azure Static Web Apps u otro servidor estático.
+La URL de entrega es **https://elwombokombo.github.io/TPNDLabAR/**. Para probar sin cámara, agregá `?demo=1`; para imprimir los carteles, abrí `marcadores.html` en esa misma dirección. El certificado HTTPS lo administra GitHub.
+
+El juego no necesita backend, claves, base de datos ni servicios pagos. La construcción y las pruebas de lógica usan solo Node.js; no requieren `npm install`. `npm run build` también permite generar los archivos públicos localmente.
 
 ## Montaje para Bruno, Maxi y Gonzalo
 
@@ -75,6 +72,6 @@ Versiones estables verificadas el 17/10/2026, guardadas localmente para no depen
 - [AR.js 3.4.8](https://github.com/AR-js-org/AR.js/releases/tag/3.4.8).
 - Patrones, imágenes y calibración de cámara de [AR-js-org/AR.js](https://github.com/AR-js-org/AR.js/tree/3.4.8/three.js/examples/marker-training/examples).
 - [Documentación oficial de marcadores y eventos](https://ar-js-org.github.io/AR.js-Docs/marker-based/).
-- [Configurar GitHub Pages desde una rama](https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site).
+- [Publicar con GitHub Actions](https://docs.github.com/en/pages/getting-started-with-github-pages/using-custom-workflows-with-github-pages).
 
 Licencias de las bibliotecas en **assets/vendor/**. La cámara se procesa en el navegador: el proyecto no graba ni sube imágenes. Requiere HTTPS (o localhost), WebGL y permiso de cámara.

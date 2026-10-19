@@ -4,4 +4,3 @@ artifacts/
 .DS_Store
 Thumbs.db
 *.log
-.site-release/
